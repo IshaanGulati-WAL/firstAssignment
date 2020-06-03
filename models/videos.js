@@ -14,7 +14,7 @@ class Videos extends Model {
 
         return {
             watchedVideos: {
-                relation: Model.HasManyRelation,
+                relation: Model.ManyToManyRelation,
                 modelClass: WatchedVideos,
                 join: {
                     from: 'videos.id',
