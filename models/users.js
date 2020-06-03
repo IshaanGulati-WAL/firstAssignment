@@ -13,6 +13,7 @@ class Users extends Model {
         const Courses=require('./courses');
         const UserCourses=require('./userCourses');
         const WatchedVideos=require('./watchedVideos');
+        const Videos=require('./videos');
 
         return {
             courses: {
@@ -20,7 +21,11 @@ class Users extends Model {
                 modelClass: Courses,
                 join: {
                     from: 'users.id',
-                    to: 'courses.userId'
+                    through: {
+                        from: 'userCourses.userId',
+                        to: 'userCourses.courseId',
+                    },
+                    to: 'courses.id'
                 }
             },
             userCourses: {
@@ -33,10 +38,14 @@ class Users extends Model {
             },
             watchedVideos:{
                 relation:Model.HasManyRelation,
-                modelClass:WatchedVideos,
+                modelClass:Videos,
                 join:{
                     from:'users.id',
-                    to:'watchedVideos.userId'
+                    through: {
+                        from: 'watchedVideos.userId',
+                        to: 'watchedVideos.videoId',
+                    },
+                    to:'videos.id'
                 }
             }
         };
