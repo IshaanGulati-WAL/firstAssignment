@@ -17,7 +17,7 @@ class Users extends Model {
 
         return {
             courses: {
-                relation: Model.HasManyRelation,
+                relation: Model.ManyToManyRelation,
                 modelClass: Courses,
                 join: {
                     from: 'users.id',
@@ -28,16 +28,16 @@ class Users extends Model {
                     to: 'courses.id'
                 }
             },
-            userCourses: {
-                relation: Model.HasManyRelation,
-                modelClass: UserCourses,
-                join: {
-                    from: 'users.id',
-                    to: 'userCourses.userId'
-                }
-            },
+            // userCourses: {
+            //     relation: Model.HasManyRelation,
+            //     modelClass: UserCourses,
+            //     join: {
+            //         from: 'users.id',
+            //         to: 'userCourses.userId'
+            //     }
+            // },
             watchedVideos:{
-                relation:Model.HasManyRelation,
+                relation:Model.ManyToManyRelation,
                 modelClass:Videos,
                 join:{
                     from:'users.id',
