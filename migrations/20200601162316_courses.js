@@ -6,6 +6,7 @@ exports.up = function(knex,Promise) {
         t.dateTime('updatedAt').nullable();
         t.string('name').notNull();
         t.integer('userId').notNull();
+        t.foreign('userId').references('id').inTable('users');
     });
 };
 

@@ -5,7 +5,8 @@ exports.up = function(knex,Promise) {
         t.dateTime('createdAt').notNull();
         t.dateTime('updatedAt').nullable();
         t.string('name').notNull();
-        t.integer('courseId').notNull();         
+        t.integer('courseId').notNull();  
+        t.foreign('courseId').references('id').inTable('courses');       
     });
 };
 
