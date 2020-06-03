@@ -2,10 +2,10 @@
 exports.up = function(knex,Promise) {
     return knex.schema.createTable('topics', function(t) {
         t.increments('id').unsigned().primary();
-        t.dateTime('createdAt').notNull();
+        t.dateTime('createdAt').notNullable();
         t.dateTime('updatedAt').nullable();
-        t.string('name').notNull();
-        t.integer('courseId').notNull();  
+        t.string('name').notNullable();
+        t.integer('courseId').notNullable();  
         t.foreign('courseId').references('id').inTable('courses');       
     });
 };
