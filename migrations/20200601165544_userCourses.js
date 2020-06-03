@@ -8,7 +8,7 @@ exports.up = function(knex,Promise) {
         t.foreign('courseId').references('id').inTable('courses');
         t.integer('userId').notNullable();
         t.foreign('userId').references('id').inTable('users');
-        t.boolean('completed');         
+        t.boolean('completed').defaultTo(false);         
     });
 };
 

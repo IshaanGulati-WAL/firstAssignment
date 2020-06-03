@@ -9,7 +9,7 @@ exports.up = function(knex,Promise) {
         t.integer('userId').notNullable();
         t.foreign('userId').references('id').inTable('users');
         t.timestamp('watchedAt');
-        t.boolean('isWatched');         
+        t.boolean('isWatched').defaultTo(false);
     });
 };
 
