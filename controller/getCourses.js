@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const jwt = require('jsonwebtoken');
 
 const Courses = require('../models/courses');
@@ -6,7 +6,7 @@ const Courses = require('../models/courses');
 async function getCourses(req, res, next) {
     let trx = null;
     try {
-        let userId = jwt.verify(req.headers['token'], process.env.JWT_SECRET_TOKEN);
+        let userId = req.token;
         if (userId.id) {
             const course = await Courses.query(trx).where({
                 name: req.body.name,

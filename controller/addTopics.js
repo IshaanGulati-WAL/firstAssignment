@@ -1,4 +1,3 @@
-require('dotenv').config();
 
 const Topics = require('../models/topics');
 
