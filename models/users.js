@@ -1,4 +1,5 @@
 const Model = require('./index');
+const bcrypt = require('bcrypt');
 
 class Users extends Model {
     static get tableName() {
@@ -9,11 +10,21 @@ class Users extends Model {
         return 'id';
     }
 
+
+    async $beforeInsert() {
+        if (this.password) {
+            bcrypt.hash(this.password, process.env.SALT_ROUNDS, function(err, hash) {
+                // Store hash in your password DB.
+                this.password=hash
+            });
+            // this.password = bcrypt.hashSync(this.password, process.env.SALT_ROUNDS);
+        }
+    }
     static get relationMappings() {
-        const Courses=require('./courses');
-        const UserCourses=require('./userCourses');
-        const WatchedVideos=require('./watchedVideos');
-        const Videos=require('./videos');
+        const Courses = require('./courses');
+        const UserCourses = require('./userCourses');
+        const WatchedVideos = require('./watchedVideos');
+        const Videos = require('./videos');
 
         return {
             courses: {
@@ -36,16 +47,16 @@ class Users extends Model {
             //         to: 'userCourses.userId'
             //     }
             // },
-            watchedVideos:{
-                relation:Model.ManyToManyRelation,
-                modelClass:Videos,
-                join:{
-                    from:'users.id',
+            watchedVideos: {
+                relation: Model.ManyToManyRelation,
+                modelClass: Videos,
+                join: {
+                    from: 'users.id',
                     through: {
                         from: 'watchedVideos.userId',
                         to: 'watchedVideos.videoId',
                     },
-                    to:'videos.id'
+                    to: 'videos.id'
                 }
             }
         };
