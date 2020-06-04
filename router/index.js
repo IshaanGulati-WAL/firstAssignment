@@ -7,14 +7,23 @@ const GetCourse=require('../controller/getCourses');
 const AddTopic=require('../controller/addTopics');
 const GetTopic=require('../controller/getTopics');
 
-router.use('/signUp',SignUp);
-router.use('/signIn',SignIn);
+//jwt Verify Middleware
+const JwtDecode=require('../controller/jwtDecode');
 
-router.use('/addTopic',AddTopic);
+//validations Middleware
+const SignUpValidator=require('../validations/signUpValidator');
+const SignInValidator=require('../validations/signInValidator');
+const AddCourseValidator=require('../validations/addCoursesValidator');
+const AddTopicValidator=require('../validations/addTopicsValidator');
+
+router.use('/signUp',SignUpValidator,SignUp);
+router.use('/signIn',SignInValidator,SignIn);
+
+router.use('/addTopic',AddTopicValidator,AddTopic);
 router.use('/getTopic',GetTopic);
 
-router.use('/addCourse',AddCourse);
-router.use('/getCourse',GetCourse);
+router.use('/addCourse',JwtDecode,AddCourseValidator,AddCourse);
+router.use('/getCourse',JwtDecode,GetCourse);
 
 
 module.exports = exports = router;
