@@ -9,7 +9,11 @@ async function signInUser(req, res, next) {
         const user = await userModel.query()
             .findOne({ email: req.body.email });
         if (user) {
-            let verifyPassword = bcrypt.compareSync(req.body.password, user.password);
+            let verifyPassword=false;
+            bcrypt.compare(req.body.password, user.password, function(err, result) {
+                verifyPassword=result;
+            })
+            // let verifyPassword = bcrypt.compareSync(req.body.password, user.password);//use async
             if (verifyPassword) {
                 const token = jwt.sign({ id: user.id },
                     process.env.JWT_SECRET_TOKEN);
