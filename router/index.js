@@ -6,6 +6,9 @@ const AddCourse=require('../controller/addCourses');
 const GetCourse=require('../controller/getCourses');
 const AddTopic=require('../controller/addTopics');
 const GetTopic=require('../controller/getTopics');
+const AddVideo=require('../controller/addVideos');
+const GetVideo=require('../controller/getVideos');
+const SubscribeCourse=require('../controller/subscribeCourse');
 
 //jwt Verify Middleware
 const JwtDecode=require('../controller/jwtDecode');
@@ -25,5 +28,9 @@ router.use('/getTopic',GetTopic);
 router.use('/addCourse',JwtDecode,AddCourseValidator,AddCourse);
 router.use('/getCourse',JwtDecode,GetCourse);
 
+router.use('/addVideo',AddVideo);
+router.use('/getVideo',GetVideo);
+
+router.use('/subscribeCourse',JwtDecode,SubscribeCourse);
 
 module.exports = exports = router;
