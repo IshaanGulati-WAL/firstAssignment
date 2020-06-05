@@ -9,6 +9,9 @@ const GetTopic=require('../controller/getTopics');
 const AddVideo=require('../controller/addVideos');
 const GetVideo=require('../controller/getVideos');
 const SubscribeCourse=require('../controller/subscribeCourse');
+const GetAllCourses=require('../controller/getAllCourses');
+const TopicsInCourse=require('../controller/topicsInCourse');
+const VideosInTopic=require('../controller/videosInTopic');
 
 //jwt Verify Middleware
 const JwtDecode=require('../controller/jwtDecode');
@@ -32,5 +35,9 @@ router.use('/addVideo',AddVideo);
 router.use('/getVideo',GetVideo);
 
 router.use('/subscribeCourse',JwtDecode,SubscribeCourse);
+
+router.use('/courses',GetAllCourses);
+router.use('/topicsInCourse/:courseId',TopicsInCourse);
+router.use('/videosInTopic/:courseId/:topicId',VideosInTopic);
 
 module.exports = exports = router;
