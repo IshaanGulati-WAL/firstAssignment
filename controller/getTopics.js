@@ -22,10 +22,7 @@ async function getTopics(req, res, next) {
                 topics
             });
         }
-        res.status(200).json({
-            success: true,
-
-        });
+        
     } catch (error) {
         next(error);
     }
