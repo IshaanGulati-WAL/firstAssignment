@@ -4,7 +4,7 @@ const addTopicsValidator = async (req, res, next) => {
     try {
         const addCoursesSchema = Joi.object({
             name: Joi.string().required(),
-            courseId: Joi.integer().required(),
+            courseId: Joi.number().required(),
         });
 
         const value = await addCoursesSchema.validate(

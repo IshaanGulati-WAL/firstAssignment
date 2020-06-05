@@ -6,10 +6,11 @@ const Courses = require('../models/courses');
 async function getCourses(req, res, next) {
     let trx = null;
     try {
+        console.log("entered get courses")
         let userId = req.token;
         if (userId.id) {
             const course = await Courses.query(trx).where({
-                name: req.body.name,
+                // name: req.body.name,
                 userId: userId.id
             }).returning('*');
             res.status(200).json({
@@ -25,10 +26,7 @@ async function getCourses(req, res, next) {
                 courses
             });
         }
-        res.status(200).json({
-            success: true,
 
-        });
     } catch (error) {
         next(error);
     }

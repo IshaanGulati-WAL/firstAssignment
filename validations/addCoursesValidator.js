@@ -4,13 +4,13 @@ const addCoursesValidator = async (req, res, next) => {
     try {
         const addCoursesSchema = Joi.object({
             name: Joi.string().required(),
-            userId: Joi.integer().required(),
+            userId: Joi.number().required(),
         });
 
         const value = await addCoursesSchema.validate(
             {
                 name: req.body.name,
-                userId: req.body.userId,
+                userId: req.token.id,
             }
         );
         if (value) {
@@ -19,6 +19,7 @@ const addCoursesValidator = async (req, res, next) => {
         else {
             res.status(400).json({
                 success: false,
+                message:"false at add courses validator"
             })
         }
     }

@@ -1,5 +1,6 @@
 const Model = require('./index');
 const bcrypt = require('bcrypt');
+const passwordHash = require('password-hash');
 
 class Users extends Model {
     static get tableName() {
@@ -10,15 +11,64 @@ class Users extends Model {
         return 'id';
     }
 
+    //   hash=async(pass)=>{
+    //     await bcrypt.hash(pass, 10, function (err, hash) {
+    //         // Store hash in your password DB.
+    //         if (err) {
+    //             console.log(err)
+    //         }
+    //         else {
+    //             console.log(hash)
+    //             return hash;
+    //             // console.log(hash)
+    //             // pass = hash
+    //             // console.log(this.password)
+    //             // this.password=hash
+    //             // // this.password = hash
 
+    //         }
+
+    //     });
+    // }
     async $beforeInsert() {
-        if (this.password) {
-            bcrypt.hash(this.password, process.env.SALT_ROUNDS, function(err, hash) {
-                // Store hash in your password DB.
+        // let pass = null;
+        // console.log(this.password)
+
+        // let pass=this.password
+        // let ans=null
+        // this.password = passwordHash.generate(this.password);
+        // console.log(await this.hash(this.password))
+        //    await bcrypt.genSalt(10,async function(err, salt) {
+        //        await bcrypt.hash(pass, salt,async function(err, hash) {
+        //             // Store hash in your password DB.
+        //             console.log(hash)
+        //             console.log(this+" "+40)
+        //             ans=await hash;
+        //             this.password=hash
+        //         });
+        //     });
+        // console.log(ans)
+        // this.password=await this.hash(this.password);
+         bcrypt.hash(this.password, 10, function (err, hash) {
+            // Store hash in your password DB.
+            if (err) {
+                // console.log(err)
+            }
+            else {
+                // console.log(hash)
+                // pass = hash
+                console.log(this.password)
                 this.password=hash
-            });
-            // this.password = bcrypt.hashSync(this.password, process.env.SALT_ROUNDS);
-        }
+                // this.password = hash
+
+            }
+
+        });
+        // this.password = bcrypt.hashSync(this.password, process.env.SALT_ROUNDS);
+        // console.log(pass)
+        // this.pass
+
+        // console.log(this.password)
     }
     static get relationMappings() {
         const Courses = require('./courses');

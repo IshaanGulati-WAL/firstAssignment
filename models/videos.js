@@ -25,4 +25,4 @@ class Videos extends Model {
     }
 }
 
-module.exports = User;
+module.exports = Videos;
