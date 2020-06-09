@@ -2,11 +2,10 @@ const Courses = require('../models/courses');
 const UserCourses=require('../models/userCourses');
 
 async function subscribeCourses(req, res, next) {
-    let trx = null;
     try {
-        let tokenData = req.token;
+        let tokenData = req.constant;
 
-        const course=await Courses.query(trx).findOne({
+        const course=await Courses.query().findOne({
             id:req.body.courseId
         })
         if(course.userId==tokenData.id){
@@ -17,7 +16,7 @@ async function subscribeCourses(req, res, next) {
             return;    
         }
         else{
-            const userCourse = await UserCourses.query(trx).insert({
+            const userCourse = await UserCourses.query().insert({
                 courseId: req.body.courseId,
                 userId: tokenData.id
             }).returning('*');

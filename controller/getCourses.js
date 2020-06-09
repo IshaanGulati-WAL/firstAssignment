@@ -4,13 +4,11 @@ const jwt = require('jsonwebtoken');
 const Courses = require('../models/courses');
 
 async function getCourses(req, res, next) {
-    let trx = null;
+
     try {
-        console.log("entered get courses")
-        let userId = req.token;
+        let userId = req.constant;
         if (userId.id) {
-            const course = await Courses.query(trx).where({
-                // name: req.body.name,
+            const course = await Courses.query().where({
                 userId: userId.id
             }).returning('*');
             res.status(200).json({
@@ -19,7 +17,6 @@ async function getCourses(req, res, next) {
             });
         }
         else{
-            // knex.select().table('courses')
             const courses =await knex.select().table('courses');
             res.status(200).json({
                 success: true,

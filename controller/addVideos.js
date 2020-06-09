@@ -2,10 +2,10 @@
 const Videos = require('../models/videos');
 
 async function addVideo(req, res, next) {
-    let trx = null;
+ 
     try {
         
-        const video = await Videos.query(trx).insert({
+        const video = await Videos.query().insert({
             link: req.body.link,
             topicId: req.body.topicId
         }).returning('*');

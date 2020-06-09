@@ -4,11 +4,10 @@ const jwt = require('jsonwebtoken');
 const Courses = require('../models/courses');
 
 async function addCourses(req, res, next) {
-    let trx = null;
     try {
         console.log("entered add courses");
-        let tokenData = req.token;
-        const course = await Courses.query(trx).insert({
+        let tokenData = req.constant;
+        const course = await Courses.query().insert({
             name: req.body.name,
             userId: tokenData.id
         }).returning('*');

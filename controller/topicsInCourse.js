@@ -3,7 +3,6 @@ const Topics = require('../models/topics');
 async function getTopicsInACourse(req, res, next) {
     try {
         if (req.params.courseId) {
-            console.log("=====================================")
             const topics = await Topics.query().where({
                 courseId: req.params.courseId
             }).select('*');

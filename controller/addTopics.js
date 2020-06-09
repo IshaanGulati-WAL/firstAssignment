@@ -2,10 +2,10 @@
 const Topics = require('../models/topics');
 
 async function addTopic(req, res, next) {
-    let trx = null;
+    
     try {
         
-        const topic = await Topics.query(trx).insert({
+        const topic = await Topics.query().insert({
             name: req.body.name,
             courseId: req.body.courseId
         }).returning('*');
