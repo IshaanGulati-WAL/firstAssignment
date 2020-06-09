@@ -27,7 +27,7 @@ class Courses extends Model {
                 modelClass: Topics,
                 join: {
                     from: 'courses.id',
-                    to: 'userCourses.courseId'
+                    to: 'topics.courseId'
                 }
             },
         };
