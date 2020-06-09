@@ -28,4 +28,25 @@ const addCoursesValidator = async (req, res, next) => {
     }
 }
 
-module.exports = exports = addCoursesValidator;
+async function dbValidations(req, res, next) {
+    try {
+        const isValid = addCoursesValidator(req.body);
+        if (isValid) {
+            
+            const emailExist = await Users.query().select().where('email', 'ilike', req.body.email);
+            if (emailExist.length == 0) {
+                res.status(409).json({
+                    error: "User not Exists",
+                });
+                return;
+            }
+            else {
+                next();
+            }
+        }
+    } catch (error) {
+        next(error);
+    }
+}
+
+module.exports = exports = dbValidations;
