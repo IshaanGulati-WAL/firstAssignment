@@ -1,5 +1,5 @@
 const Joi = require('@hapi/joi');
-
+const Users=require('../models/users')
 const loginValidator = async (req, res, next) => {
     try {
         const loginDataSchema = Joi.object({
